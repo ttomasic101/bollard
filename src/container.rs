@@ -48,7 +48,7 @@ use crate::network::EndpointIPAMConfig;
 ///     ..Default::default()
 /// };
 /// ```
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct ListContainersOptions<T>
 where
     T: AsRef<str> + Eq + Hash,
@@ -123,7 +123,7 @@ where
 ///     name: "my-new-container",
 /// };
 /// ```
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct CreateContainerOptions<T>
 where
     T: AsRef<str>,
@@ -805,7 +805,7 @@ pub struct CreateContainerResults {
 /// StopContainerOptions{
 ///     t: 30,
 /// };
-#[derive(Debug, Copy, Clone, Default)]
+#[derive(Debug, Copy, Clone, Default, Serialize, Deserialize)]
 pub struct StopContainerOptions {
     /// Number of seconds to wait before killing the container
     pub t: i64,
@@ -837,7 +837,7 @@ impl<'a> StopContainerQueryParams<&'a str> for StopContainerOptions {
 ///     detach_keys: "ctrl-^"
 /// };
 /// ```
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct StartContainerOptions<T>
 where
     T: AsRef<str>,
@@ -877,7 +877,7 @@ impl<'a, T: AsRef<str>> StartContainerQueryParams<&'a str, T> for StartContainer
 ///     ..Default::default()
 /// };
 /// ```
-#[derive(Debug, Copy, Clone, Default)]
+#[derive(Debug, Copy, Clone, Default, Serialize, Deserialize)]
 pub struct RemoveContainerOptions {
     /// Remove the volumes associated with the container.
     pub v: bool,
@@ -918,7 +918,7 @@ impl<'a> RemoveContainerQueryParams<&'a str, &'a str> for RemoveContainerOptions
 ///     condition: "not-running",
 /// };
 /// ```
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct WaitContainerOptions<T>
 where
     T: AsRef<str>,
@@ -972,7 +972,7 @@ pub struct WaitContainerResults {
 ///     t: 30,
 /// };
 /// ```
-#[derive(Debug, Copy, Clone, Default)]
+#[derive(Debug, Copy, Clone, Default, Serialize, Deserialize)]
 pub struct RestartContainerOptions {
     /// Number of seconds to wait before killing the container.
     pub t: isize,
@@ -1004,7 +1004,7 @@ impl<'a> RestartContainerQueryParams<&'a str> for RestartContainerOptions {
 ///     size: false,
 /// };
 /// ```
-#[derive(Debug, Copy, Clone, Default)]
+#[derive(Debug, Copy, Clone, Default, Serialize, Deserialize)]
 pub struct InspectContainerOptions {
     /// Return the size of container as fields `SizeRw` and `SizeRootFs`
     pub size: bool,
@@ -1040,7 +1040,7 @@ impl<'a> InspectContainerQueryParams<&'a str, &'a str> for InspectContainerOptio
 ///     ps_args: "aux",
 /// };
 /// ```
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct TopOptions<T>
 where
     T: AsRef<str>,
@@ -1090,7 +1090,7 @@ pub struct TopResult {
 ///     ..Default::default()
 /// };
 /// ```
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct LogsOptions {
     /// Return the logs as a finite stream.
     pub follow: bool,
@@ -1133,7 +1133,7 @@ impl<'a> LogsQueryParams<&'a str> for LogsOptions {
 }
 
 /// Result type for the [Logs API](../struct.Docker.html#method.logs)
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 #[allow(missing_docs)]
 pub enum LogOutput {
     StdErr { message: String },
@@ -1184,7 +1184,7 @@ impl fmt::Display for Change {
 ///     stream: false,
 /// };
 /// ```
-#[derive(Debug, Copy, Clone, Default)]
+#[derive(Debug, Copy, Clone, Default, Serialize, Deserialize)]
 pub struct StatsOptions {
     /// Stream the output. If false, the stats will be output once and then it will disconnect.
     pub stream: bool,
@@ -1377,7 +1377,7 @@ pub struct BlkioStatsEntry {
 ///     signal: "SIGINT",
 /// };
 /// ```
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct KillContainerOptions<T>
 where
     T: AsRef<str>,
@@ -1565,7 +1565,7 @@ pub struct UpdateContainerOptions {
 ///     name: "my_new_container_name"
 /// };
 /// ```
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct RenameContainerOptions<T>
 where
     T: AsRef<str>,
@@ -1606,7 +1606,7 @@ impl<'a, T: AsRef<str>> RenameContainerQueryParams<&'a str, T> for RenameContain
 ///     filters: filters
 /// };
 /// ```
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct PruneContainersOptions<T>
 where
     T: AsRef<str> + Eq + Hash,
@@ -1664,7 +1664,7 @@ pub struct PruneContainersResults {
 ///     ..Default::default()
 /// };
 /// ```
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct UploadToContainerOptions<T>
 where
     T: AsRef<str>,
@@ -1707,7 +1707,7 @@ impl<'a, T: AsRef<str>> UploadToContainerQueryParams<&'a str, T> for UploadToCon
 ///     path: "/opt",
 /// };
 /// ```
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct DownloadFromContainerOptions<T>
 where
     T: AsRef<str>,
